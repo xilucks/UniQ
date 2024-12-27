@@ -10,9 +10,11 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
+    "@types/eslint": "^9.6.1",
+    "@types/estree": "^1.0.6",
     "prettier": "^3.2.5",
     "turbo": "^2.3.3",
-    "typescript": "5.5.4"
+    "typescript": "^5.7.2"
   },
   "engines": {
     "node": ">=18"
@@ -22,7 +24,6 @@
     "apps/*",
     "packages/*"
   ],
-
   "keywords": [],
   "author": "",
   "license": "ISC"

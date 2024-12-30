@@ -96,6 +96,7 @@ eslint --ext .ts,.tsx --plugin @uniq/qslint --rules @uniq/qslint/rules/no-consol
 .eslintrc.json
 ```json
 {
-  "plugins": ["@uniq/qslint"]
+  "extends": ["@uni-q/qslint/recommended"],
+  "plugins": ["@uni-q/qslint"]
 }
 ```    

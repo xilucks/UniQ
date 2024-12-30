@@ -27,16 +27,16 @@ const config = {
       parserOptions: {
         project: './tsconfig.json'
       },
-      plugins: ['qslint'],
+      plugins: ['@uni-q/qslint'],
       rules: {
         ...airbnbConfig.rules,
         ...airbnbTsConfig.rules,
-        'qslint/folder-naming-convention': 'error',
-        'qslint/component-export-style': 'error',
-        'qslint/component-name-case': 'error',
-        'qslint/component-inner-arrow-function': 'error',
-        'qslint/arrow-function-comment': 'error',
-        'qslint/no-console-log': 'error',
+        '@uni-q/qslint/folder-naming-convention': 'error',
+        '@uni-q/qslint/component-export-style': 'error',
+        '@uni-q/qslint/component-name-case': 'error',
+        '@uni-q/qslint/component-inner-arrow-function': 'error',
+        '@uni-q/qslint/arrow-function-comment': 'error',
+        '@uni-q/qslint/no-console-log': 'error',
       },
     },
   },

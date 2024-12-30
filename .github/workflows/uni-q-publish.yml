@@ -5,8 +5,8 @@ on:
     branches:
       - main
     paths:
-      - 'packages/common/qslint/**'
-      - '.github/workflows/uni-q-publish.yml'
+      - 'packages/**'
+      - '.github/workflows/publish.yml'
 
 jobs:
   publish:
@@ -22,16 +22,25 @@ jobs:
           
       - name: Install dependencies
         run: npm install
+
+      - name: Cache Turbo
+        uses: actions/cache@v3
+        with:
+          path: .turbo
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
         
       - name: Build
-        run: npm run build
-        
-      - name: Test
-        run: npm run test
+        run: npx turbo run build 
         
       - name: Publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           cd packages/common/qslint
-          npm publish --access public
+          if [ $(npm view @uniq/common-qslint version) != $(node -p "require('./package.json').version") ]; then
+            npm publish --access public
+          else
+            echo "Version already published"
+          fi

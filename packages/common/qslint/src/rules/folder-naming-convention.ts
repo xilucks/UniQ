@@ -53,16 +53,22 @@ export default createRule({
           return;
         }
 
-        // 현재 파일의 바로 위 폴더명만 가져오기
-        const parentDir = path.basename(path.dirname(filePath));
+        // 현일의 직계 부모 폴더명 가져오기
+        const pathParts = relativePath.split(path.sep);
+        const currentFolder = pathParts[pathParts.length - 2];  // 파일명 바로 앞의 폴더
 
-        // 부모 디렉토리가 있고 유효하지 않은 이름인 경우에만 에러 보고
-        if (parentDir && !isValidNextFolderName(parentDir)) {
+        // 부모 폴더가 없는 경우 무시
+        if (!currentFolder) {
+          return;
+        }
+
+        // 유효하지 않은 이름인 경우에만 에러 보고
+        if (!isValidNextFolderName(currentFolder)) {
           context.report({
             node,
             messageId: 'invalidFolderName',
             data: {
-              folderName: parentDir,
+              folderName: currentFolder,
             },
           });
         }

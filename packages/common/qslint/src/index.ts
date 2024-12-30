@@ -32,6 +32,7 @@ const config = {
         ...airbnbConfig.rules,
         ...airbnbTsConfig.rules,
         ...airbnbHooksConfig.rules,
+        'linebreak-style': 'off',
         '@uni-q/qslint/folder-naming-convention': 'error',
         '@uni-q/qslint/component-export-style': 'error',
         '@uni-q/qslint/component-name-case': 'error',

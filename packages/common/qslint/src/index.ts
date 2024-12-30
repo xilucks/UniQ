@@ -2,7 +2,6 @@ import type { ESLintUtils } from '@typescript-eslint/utils';
 import airbnbConfig from 'eslint-config-airbnb';
 import airbnbTsConfig from 'eslint-config-airbnb-typescript';
 import airbnbHooksConfig from 'eslint-config-airbnb/hooks';
-import folderNamingRule from './rules/folder-naming-convention.js';
 import componentExportStyleRule from './rules/component-export-style.js';
 import componentNameCaseRule from './rules/component-name-case.js';
 import componentInnerArrowFunctionRule from './rules/component-inner-arrow-function.js';
@@ -11,7 +10,6 @@ import noConsoleLogRule from './rules/no-console-log.js';
 
 const config = {
   rules: {
-    'folder-naming-convention': folderNamingRule as ESLintUtils.RuleModule<string, []>,
     'component-export-style': componentExportStyleRule as ESLintUtils.RuleModule<string, []>,
     'component-name-case': componentNameCaseRule as ESLintUtils.RuleModule<string, []>,
     'component-inner-arrow-function': componentInnerArrowFunctionRule as ESLintUtils.RuleModule<string, []>,

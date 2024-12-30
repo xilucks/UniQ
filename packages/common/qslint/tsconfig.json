@@ -1,17 +1,15 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "target": "es2018",
-    "module": "commonjs",
-    "moduleResolution": "node",
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",
+    "skipLibCheck": false,
+    "moduleResolution": "node16",
+    "resolveJsonModule": true,
     "declaration": true,
-    "sourceMap": true
+    "preserveSymlinks": true,
+    "types": ["node", "eslint"],
+    "module": "node16"
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "lib"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

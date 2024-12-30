@@ -42,9 +42,8 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           # 변경된 패키지 찾기
-          CHANGED_PACKAGES=$(npx turbo run build --filter=[HEAD^1] --dry-run | grep "packages/" | cut -d'/' -f1-3)
+          CHANGED_PACKAGES=$(npx turbo run build --filter=[HEAD^1] --dry-run | grep "packages/" | cut -d'/' -f1-3 | sort -u)
           
-          # 각 변경된 패키지에 대해 배포 시도
           for package in $CHANGED_PACKAGES; do
             if [ -f "$package/package.json" ]; then
               cd $package

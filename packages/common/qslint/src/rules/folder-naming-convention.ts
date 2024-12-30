@@ -44,9 +44,19 @@ export default createRule({
   create(context) {
     return {
       Program(node) {
-        const filename = context.filename;
-        const parentDir = path.basename(path.dirname(filename));
+        const filePath = context.filename;
+        const projectRoot = context.cwd;
+        const relativePath = path.relative(projectRoot, filePath);
         
+        // 프로젝트 루트 외부 파일은 무시
+        if (relativePath.startsWith('..') || path.isAbsolute(relativePath)) {
+          return;
+        }
+
+        // 현재 파일의 바로 위 폴더명만 가져오기
+        const parentDir = path.basename(path.dirname(filePath));
+
+        // 부모 디렉토리가 있고 유효하지 않은 이름인 경우에만 에러 보고
         if (parentDir && !isValidNextFolderName(parentDir)) {
           context.report({
             node,

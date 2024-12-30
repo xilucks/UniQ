@@ -1,7 +1,7 @@
 import { ESLintUtils } from '@typescript-eslint/utils';
 
 const createRule = ESLintUtils.RuleCreator(
-  (name) => `https://your-documentation-url.com/rules/${name}`
+  (name) => `https://github.com/xilucks/UniQ/blob/main/packages/common/qslint/readme.md`
 );
 
 export default createRule({

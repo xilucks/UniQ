@@ -2,7 +2,7 @@ import { ESLintUtils } from '@typescript-eslint/utils';
 import path from 'path';
 
 const createRule = ESLintUtils.RuleCreator(
-  (name) => `https://your-documentation-url.com/rules/${name}`
+  (name) => `https://github.com/xilucks/UniQ/blob/main/packages/common/qslint/readme.md`
 );
 
 const isKebabCase = (str: string) => /^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/.test(str);

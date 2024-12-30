@@ -4,7 +4,7 @@
   "description": "TypeScript/JavaScript Library for uni and quality system team",
   "private": true,
   "scripts": {
-    "build": "turbo build",
+    "build": "turbo run build",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
@@ -21,8 +21,7 @@
   },
   "packageManager": "npm@10.9.0",
   "workspaces": [
-    "apps/*",
-    "packages/*"
+    "packages/**/*"
   ],
   "keywords": [],
   "author": "",

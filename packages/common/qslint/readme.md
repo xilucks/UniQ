@@ -86,17 +86,20 @@ const myFunction = (foo: string) => {
 ## how to use
 
 ```bash
-npm install @uniq/qslint
+npm install @uni-q/eslint-plugin-qslint
 ```
 
 ```bash
 eslint --ext .ts,.tsx --plugin @uniq/qslint --rules @uniq/qslint/rules/no-console-log.ts
 ```     
 
-.eslintrc.json
+## 설정 방법
+
+`.eslintrc.json` 파일에 다음과 같이 설정하세요:
+
 ```json
 {
-  "extends": ["@uni-q/qslint/recommended"],
+  "extends": ["plugin:@uni-q/qslint/recommended"],
   "plugins": ["@uni-q/qslint"]
 }
 ```    

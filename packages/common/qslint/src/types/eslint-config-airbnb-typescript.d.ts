@@ -3,7 +3,7 @@ declare module 'eslint-config-airbnb-typescript/base' {
   export default config;
 }
 
-declare module 'eslint-config-airbnb-base' {
+declare module 'eslint-config-airbnb-typescript' {
   const config: any;
   export default config;
 } 

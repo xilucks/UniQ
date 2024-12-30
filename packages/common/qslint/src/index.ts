@@ -1,6 +1,7 @@
 import type { ESLintUtils } from '@typescript-eslint/utils';
-import airbnbConfig from 'eslint-config-airbnb-base';
-import airbnbTsConfig from 'eslint-config-airbnb-typescript/base';
+import airbnbConfig from 'eslint-config-airbnb';
+import airbnbTsConfig from 'eslint-config-airbnb-typescript';
+import airbnbHooksConfig from 'eslint-config-airbnb/hooks';
 import folderNamingRule from './rules/folder-naming-convention.js';
 import componentExportStyleRule from './rules/component-export-style.js';
 import componentNameCaseRule from './rules/component-name-case.js';
@@ -20,8 +21,9 @@ const config = {
   configs: {
     recommended: {
       extends: [
-        'airbnb-base',
-        'airbnb-typescript/base'
+        'airbnb',
+        'airbnb/hooks',
+        'airbnb-typescript'
       ],
       parser: '@typescript-eslint/parser',
       parserOptions: {
@@ -31,6 +33,7 @@ const config = {
       rules: {
         ...airbnbConfig.rules,
         ...airbnbTsConfig.rules,
+        ...airbnbHooksConfig.rules,
         '@uni-q/qslint/folder-naming-convention': 'error',
         '@uni-q/qslint/component-export-style': 'error',
         '@uni-q/qslint/component-name-case': 'error',

@@ -7,12 +7,15 @@ on:
     paths:
       - 'packages/**'
       - '.github/workflows/uni-q-publish.yml'
+  workflow_dispatch:
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -32,15 +35,29 @@ jobs:
             ${{ runner.os }}-turbo-
         
       - name: Build
-        run: npx turbo run build 
+        run: npx turbo run build --filter=[HEAD^1]
         
-      - name: Publish
+      - name: Publish Changed Packages
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          cd packages/common/qslint
-          if [ $(npm view @uniq/common-qslint version) != $(node -p "require('./package.json').version") ]; then
-            npm publish --access public
-          else
-            echo "Version already published"
-          fi
+          # 변경된 패키지 찾기
+          CHANGED_PACKAGES=$(npx turbo run build --filter=[HEAD^1] --dry-run | grep "packages/" | cut -d'/' -f1-3)
+          
+          # 각 변경된 패키지에 대해 배포 시도
+          for package in $CHANGED_PACKAGES; do
+            if [ -f "$package/package.json" ]; then
+              cd $package
+              PACKAGE_NAME=$(node -p "require('./package.json').name")
+              PACKAGE_VERSION=$(node -p "require('./package.json').version")
+              
+              if [ $(npm view $PACKAGE_NAME version 2>/dev/null || echo "0.0.0") != $PACKAGE_VERSION ]; then
+                echo "Publishing $PACKAGE_NAME@$PACKAGE_VERSION"
+                npm publish --access public
+              else
+                echo "Version $PACKAGE_VERSION of $PACKAGE_NAME already published"
+              fi
+              
+              cd - > /dev/null
+            fi
+          done

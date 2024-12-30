@@ -23,23 +23,18 @@ export default createRule({
   create(context) {
     return {
       Program(node) {
-        const filename = context.getFilename();
-        const directories = path
-          .dirname(filename)
-          .split(path.sep)
-          .filter(Boolean);
-
-        directories.forEach((dir) => {
-          if (!isKebabCase(dir)) {
-            context.report({
-              node,
-              messageId: 'invalidFolderName',
-              data: {
-                folderName: dir,
-              },
-            });
-          }
-        });
+        const filename = context.filename;
+        const parentDir = path.basename(path.dirname(filename));
+        
+        if (parentDir && !isKebabCase(parentDir)) {
+          context.report({
+            node,
+            messageId: 'invalidFolderName',
+            data: {
+              folderName: parentDir,
+            },
+          });
+        }
       },
     };
   },

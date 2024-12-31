@@ -21,7 +21,7 @@ npm install --save-dev @uni-q/eslint-plugin-qslint
 
 ## 규칙 (Rules)
 
-### 1. folder-naming-convention
+### 1. ~~folder-naming-convention~~ (버그 픽스 중)
 폴더 이름은 kebab-case를 따르거나 Next.js 컨벤션을 따라야 합니다.
 
 ```bash
@@ -45,9 +45,11 @@ React 컴포넌트는 `export default function` 형태로 선언해야 합니다
 
 ```tsx
 // ❌ 잘못된 예시
-export default const MyComponent = () => {
+const MyComponent = () => {
   return <div>Hello</div>;
 }
+
+export default MyComponent;
 
 // ✅ 올바른 예시
 export default function MyComponent() {

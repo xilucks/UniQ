@@ -1,97 +1,12 @@
-## Eslint For Quality System team
-this is eslint plugin for quality system team.
-Based on convention of quality system team.
+# @uni-q/eslint-plugin-qslint
 
-## Rules
-this rules is based on airbnb style guide.
+UniQ의 코드 품질 관리를 위한 ESLint 플러그인입니다.
 
-### no-console-log
-no console.log in code. 
-example:
-```ts
-// bad  
-console.log('hello');
-
-// good
-console.error('hello');
-``` 
-
-### component-export-style
-react component must be declared as export default function.
-example:
-```ts
-// bad  
-export default const MyComponent = () => {
-  return <div>Hello</div>;
-}
-
-// good
-export default function MyComponent() {
-  return <div>Hello</div>;
-}
-```
-
-### folder-naming-convention
-folder name must be kebab case.
-example:
-```ts
-// bad  
-myFolder
-
-// good
-my-folder
-```
-
-### component-inner-arrow-function
-component inner function must be arrow function.
-example:
-```ts
-// bad  
-export default function MyComponent() {
-  function myFunction () {
-    return 'foo';
-  }
-}
-
-// good
-export default function MyComponent() {
-  const myFunction = () => {
-    return 'foo';
-  }
-}
-```
-
-### arrow-function-style
-function must have comment.
-example:
-```ts
-// bad  
-const myFunction = (foo: string) => {
-  return foo;
-}
-
-// good
-/*
-* @description myFunction is a function that returns 'foo' 
-* @param {string} param - myFunction's parameter
-* @returns {string} - myFunction's return value
-*/
-const myFunction = (foo: string) => {
-  return foo;
-}
-*/
-```
-
-
-## how to use
+## 설치 방법
 
 ```bash
-npm install @uni-q/eslint-plugin-qslint
+npm install --save-dev @uni-q/eslint-plugin-qslint
 ```
-
-```bash
-eslint --ext .ts,.tsx --plugin @uniq/qslint --rules @uniq/qslint/rules/no-console-log.ts
-```     
 
 ## 설정 방법
 
@@ -102,4 +17,111 @@ eslint --ext .ts,.tsx --plugin @uniq/qslint --rules @uniq/qslint/rules/no-consol
   "extends": ["plugin:@uni-q/qslint/recommended"],
   "plugins": ["@uni-q/qslint"]
 }
-```    
+```
+
+## 규칙 (Rules)
+
+### 1. folder-naming-convention
+폴더 이름은 kebab-case를 따르거나 Next.js 컨벤션을 따라야 합니다.
+
+```bash
+# ✅ 올바른 예시
+my-folder/          # 기본 kebab-case
+[id]/               # 동적 라우트
+[...slug]/          # Catch-all 라우트
+[[...optional]]/    # Optional catch-all 라우트
+(marketing)/        # Route group
+_components/        # Private 폴더
+@modal/             # Parallel 라우트
+
+# ❌ 잘못된 예시
+myFolder/           # camelCase는 사용할 수 없습니다
+MyFolder/           # PascalCase는 사용할 수 없습니다
+my_folder/          # snake_case는 사용할 수 없습니다
+```
+
+### 2. component-export-style
+React 컴포넌트는 `export default function` 형태로 선언해야 합니다.
+
+```tsx
+// ❌ 잘못된 예시
+export default const MyComponent = () => {
+  return <div>Hello</div>;
+}
+
+// ✅ 올바른 예시
+export default function MyComponent() {
+  return <div>Hello</div>;
+}
+```
+
+### 3. component-name-case
+컴포넌트 이름은 PascalCase를 사용해야 합니다.
+
+```tsx
+// ❌ 잘못된 예시
+export default function myComponent() {
+  return <div>Hello</div>;
+}
+
+// ✅ 올바른 예시
+export default function MyComponent() {
+  return <div>Hello</div>;
+}
+```
+
+### 4. component-inner-arrow-function
+컴포넌트 내부 함수는 화살표 함수로 선언해야 합니다.
+
+```tsx
+// ❌ 잘못된 예시
+export default function MyComponent() {
+  function handleClick() {
+    console.log('clicked');
+  }
+  return <button onClick={handleClick}>Click me</button>;
+}
+
+// ✅ 올바른 예시
+export default function MyComponent() {
+  const handleClick = () => {
+    console.log('clicked');
+  };
+  return <button onClick={handleClick}>Click me</button>;
+}
+```
+
+### 5. arrow-function-comment
+화살표 함수에는 JSDoc 형식의 주석이 필요합니다.
+
+```tsx
+// ❌ 잘못된 예시
+const handleClick = () => {
+  console.log('clicked');
+};
+
+// ✅ 올바른 예시
+/**
+ * 버튼 클릭 이벤트 핸들러
+ * @returns {void}
+ */
+const handleClick = () => {
+  console.log('clicked');
+};
+```
+
+### 6. no-console-log
+`console.log()`는 사용할 수 없습니다. 대신 `console.error()`, `console.warn()` 등을 사용하세요.
+
+```tsx
+// ❌ 잘못된 예시
+console.log('디버깅 메시지');
+
+// ✅ 올바른 예시
+console.error('에러 메시지');
+console.warn('경고 메시지');
+```
+
+## 기여하기
+
+버그를 발견하셨거나 새로운 규칙을 제안하고 싶으시다면 [이슈](https://github.com/xilucks/UniQ/issues)를 생성해주세요.
